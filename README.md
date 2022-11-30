@@ -24,6 +24,7 @@ await compile(mdx, {
 ```
 
 > **Note**
+>
 > It is recommended to include each plugin _first_ in their respective plugin arrays.
 
 ## Usage
