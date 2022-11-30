@@ -1,0 +1,32 @@
+{
+  "name": "mdx-annotations",
+  "version": "0.1.0",
+  "description": "Markdoc-style annotations for MDX",
+  "author": "Brad Cornes",
+  "license": "MIT",
+  "type": "module",
+  "main": "index.js",
+  "files": [
+    "index.js"
+  ],
+  "keywords": [
+    "mdx",
+    "remark",
+    "rehype",
+    "recma",
+    "markdoc"
+  ],
+  "scripts": {
+    "test": "node test.js"
+  },
+  "devDependencies": {
+    "@mdx-js/mdx": "^2.1.5",
+    "remark-gfm": "^3.0.1",
+    "uvu": "^0.5.6"
+  },
+  "dependencies": {
+    "acorn": "^8.8.1",
+    "estree-util-visit": "^1.2.0",
+    "unist-util-visit": "^4.1.1"
+  }
+}
