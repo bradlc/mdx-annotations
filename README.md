@@ -23,8 +23,7 @@ await compile(mdx, {
 })
 ```
 
-> **Note**
->
+> **Note**\
 > It is recommended to include each plugin _first_ in their respective plugin arrays.
 
 ## Usage
