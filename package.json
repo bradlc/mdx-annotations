@@ -4,6 +4,14 @@
   "description": "Markdoc-style annotations for MDX",
   "author": "Brad Cornes",
   "license": "MIT",
+  "homepage": "https://github.com/bradlc/mdx-annotations#readme",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/bradlc/mdx-annotations.git"
+  },
+  "bugs": {
+    "url": "https://github.com/bradlc/mdx-annotations/issues"
+  },
   "type": "module",
   "main": "index.js",
   "files": [
