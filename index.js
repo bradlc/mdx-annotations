@@ -87,7 +87,12 @@ export const mdxAnnotations = {
     return (tree) => {
       estreeVisit(tree, (node) => {
         if (node.type !== 'CallExpression') return
-        if (node.callee.name !== '_jsxs' && node.callee.name !== '_jsx') return
+        if (
+          node.callee.name !== '_jsxs' &&
+          node.callee.name !== '_jsx' &&
+          node.callee.name !== '_jsxDEV'
+        )
+          return
 
         let propsNode = node.arguments[1]
         if (propsNode?.type !== 'ObjectExpression') return

@@ -128,6 +128,42 @@ export default MDXContent;`
   )
 })
 
+test('dev runtime', async () => {
+  let compiled = await compile("# Hello {{ foo: 'bar' }}", { development: true })
+
+  assert.equal(
+    compiled,
+    `/*@jsxRuntime automatic @jsxImportSource react*/
+import {jsxDEV as _jsxDEV} from "react/jsx-dev-runtime";
+function _createMdxContent(props) {
+  const _components = Object.assign({
+    h1: "h1"
+  }, props.components);
+  return _jsxDEV(_components.h1, {
+    children: "Hello",
+    ...{
+      foo: 'bar'
+    }
+  }, undefined, false, {
+    fileName: "<source.js>",
+    lineNumber: 1,
+    columnNumber: 1
+  }, this);
+}
+function MDXContent(props = {}) {
+  const {wrapper: MDXLayout} = props.components || ({});
+  return MDXLayout ? _jsxDEV(MDXLayout, Object.assign({}, props, {
+    children: _jsxDEV(_createMdxContent, props, undefined, false, {
+      fileName: "<source.js>"
+    }, this)
+  }), undefined, false, {
+    fileName: "<source.js>"
+  }, this) : _createMdxContent(props);
+}
+export default MDXContent;`
+  )
+})
+
 test('gfm', async () => {
   let compiled = await compile(
     [

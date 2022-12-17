@@ -20,7 +20,7 @@
     "test": "node test.js"
   },
   "devDependencies": {
-    "@mdx-js/mdx": "^2.1.5",
+    "@mdx-js/mdx": "^2.2.1",
     "remark-gfm": "^3.0.1",
     "uvu": "^0.5.6"
   },
