@@ -21,6 +21,12 @@ test('it works', async () => {
       "- Hello {{ foo: 'bar' }}",
       "- Hello {{ foo: 'bar' }}\n\n  World",
       "```php {{ foo: 'bar' }}\necho '';\n```",
+      "```php{{ foo: 'bar' }}\necho '';\n```",
+      "```php {  { foo: 'bar' } }\necho '';\n```",
+      "```{{foo:'bar'}}\nHello world\n```",
+      "``` {{foo:'bar'}}\nHello world\n```",
+      "```{{ foo: 'bar' }}\nHello world\n```",
+      "``` {{ foo: 'bar' }}\nHello world\n```",
       "Hello **world**{{ foo: 'bar' }}",
       "Hello _world_{{ foo: 'bar' }}",
       "Hello `world`{{ foo: 'bar' }}",
@@ -74,6 +80,50 @@ function _createMdxContent(props) {
       children: _jsx(_components.code, {
         className: "language-php",
         children: "echo '';\\n"
+      }),
+      ...{
+        foo: 'bar'
+      }
+    }), "\\n", _jsx(_components.pre, {
+      children: _jsx(_components.code, {
+        className: "language-php",
+        children: "echo '';\\n"
+      }),
+      ...{
+        foo: 'bar'
+      }
+    }), "\\n", _jsx(_components.pre, {
+      children: _jsx(_components.code, {
+        className: "language-php",
+        children: "echo '';\\n"
+      }),
+      ...{
+        foo: 'bar'
+      }
+    }), "\\n", _jsx(_components.pre, {
+      children: _jsx(_components.code, {
+        children: "Hello world\\n"
+      }),
+      ...{
+        foo: 'bar'
+      }
+    }), "\\n", _jsx(_components.pre, {
+      children: _jsx(_components.code, {
+        children: "Hello world\\n"
+      }),
+      ...{
+        foo: 'bar'
+      }
+    }), "\\n", _jsx(_components.pre, {
+      children: _jsx(_components.code, {
+        children: "Hello world\\n"
+      }),
+      ...{
+        foo: 'bar'
+      }
+    }), "\\n", _jsx(_components.pre, {
+      children: _jsx(_components.code, {
+        children: "Hello world\\n"
       }),
       ...{
         foo: 'bar'

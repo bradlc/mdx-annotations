@@ -14,10 +14,22 @@ export const mdxAnnotations = {
   remark() {
     return (tree) => {
       unistVisit(tree, (node, nodeIndex, parentNode) => {
-        if (node.type === 'code' && /^{\s*{.*?}\s*}$/.test(node.meta)) {
-          setAnnotation(node, node.meta.slice(1, -1))
-          node.meta = null
-          return
+        if (node.type === 'code') {
+          let meta = node.meta ?? ''
+          let lang
+          let annotationIndex = node.lang?.match(/{\s*{/)?.index
+          if (typeof annotationIndex === 'number') {
+            lang = node.lang.slice(0, annotationIndex) || null
+            meta = `${node.lang.slice(annotationIndex)}${meta}`
+          }
+          if (/^{\s*{.*?}\s*}$/.test(meta)) {
+            setAnnotation(node, meta.slice(1, -1))
+            node.meta = null
+            if (typeof lang !== 'undefined') {
+              node.lang = lang
+            }
+            return
+          }
         }
 
         if (node.type === 'tableRow') {
