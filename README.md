@@ -93,16 +93,12 @@ When a list item contains multiple children the annotation is attached to the ch
   <summary>Code</summary>
 
 ````markdown
+```{{ title: 'Example' }}
+Hello, world!
+```
+
 ```php {{ title: 'Example' }}
 echo 'Hello, world!';
-```
-````
-
-**You must specify a language when annotating a code block.** For plain text you may be able to use any value that doesn't match a valid language, such as `plain`, `text`, or `none`:
-
-````markdown
-```text {{ title: 'Example' }}
-Hello, world!
 ```
 ````
 
