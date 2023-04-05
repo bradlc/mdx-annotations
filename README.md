@@ -110,7 +110,7 @@ echo 'Hello, world!';
 ```markdown
 --- {{ className: 'my-10' }}
 
-\*\*\* {{ className: 'my-10' }}
+*** {{ className: 'my-10' }}
 ```
 
 </details>
