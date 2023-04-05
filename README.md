@@ -105,6 +105,17 @@ echo 'Hello, world!';
 </details>
 
 <details>
+  <summary>Thematic breaks</summary>
+
+```markdown
+--- {{ className: 'my-10' }}
+
+*** {{ className: 'my-10' }}
+```
+
+</details>
+
+<details>
   <summary>Inline elements</summary>
 
 To annotate an inline element ensure that there is no whitespace between the element and the annotation:

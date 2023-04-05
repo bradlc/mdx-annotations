@@ -32,6 +32,10 @@ test('it works', async () => {
       "Hello `world`{{ foo: 'bar' }}",
       "Hello [world](#){{ foo: 'bar' }}",
       "![](/img.png){{ foo: 'bar' }}",
+      "--- {{ foo: 'bar' }}",
+      "*** {{ foo: 'bar' }}",
+      "---{{ foo: 'bar' }}",
+      "***{{ foo: 'bar' }}",
     ].join('\n\n')
   )
 
@@ -50,7 +54,8 @@ function _createMdxContent(props) {
     strong: "strong",
     em: "em",
     a: "a",
-    img: "img"
+    img: "img",
+    hr: "hr"
   }, props.components);
   return _jsxs(_Fragment, {
     children: [_jsx(_components.h1, {
@@ -165,6 +170,22 @@ function _createMdxContent(props) {
           foo: 'bar'
         }
       })
+    }), "\\n", _jsx(_components.hr, {
+      ...{
+        foo: 'bar'
+      }
+    }), "\\n", _jsx(_components.hr, {
+      ...{
+        foo: 'bar'
+      }
+    }), "\\n", _jsx(_components.hr, {
+      ...{
+        foo: 'bar'
+      }
+    }), "\\n", _jsx(_components.hr, {
+      ...{
+        foo: 'bar'
+      }
     })]
   });
 }

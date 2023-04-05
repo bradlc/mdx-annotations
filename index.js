@@ -10,6 +10,12 @@ function setAnnotation(node, annotation) {
   props[PROP_NAME] = annotation
 }
 
+function isThematicBreak(str) {
+  if (!str) return false
+  let trimmed = str.trim()
+  return trimmed === '---' || trimmed === '***'
+}
+
 export const mdxAnnotations = {
   remark() {
     return (tree) => {
@@ -42,6 +48,19 @@ export const mdxAnnotations = {
             setAnnotation(parentNode, node.children[0].children[0].value)
             parentNode.children.splice(nodeIndex, 1)
           }
+          return
+        }
+
+        if (
+          node.type === 'paragraph' &&
+          node.children.length === 2 &&
+          node.children[0].type === 'text' &&
+          isThematicBreak(node.children[0].value) &&
+          node.children[1].type === 'mdxTextExpression'
+        ) {
+          node.type = 'thematicBreak'
+          setAnnotation(node, node.children[1].value)
+          delete node.children
           return
         }
 
