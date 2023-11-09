@@ -128,7 +128,7 @@ export const mdxAnnotations = {
         let propsNode = node.arguments[1]
         if (propsNode?.type !== 'ObjectExpression') return
 
-        let propNode = propsNode.properties.find((property) => property.key.name === PROP_NAME)
+        let propNode = propsNode.properties.find((property) => property.key && property.key.name === PROP_NAME)
 
         if (propNode) {
           let annotationNode = acorn.parse('(' + propNode.value.value.trim() + ')', {
