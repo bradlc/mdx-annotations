@@ -1,10 +1,11 @@
 import { test } from 'uvu'
 import * as assert from 'uvu/assert'
 import * as mdx from '@mdx-js/mdx'
+import * as mdx_v3 from '@mdx-js/mdx-v3'
 import { mdxAnnotations } from './index.js'
 import remarkGfm from 'remark-gfm'
 
-async function compile(string, options = {}) {
+async function compile(mdx, string, options = {}) {
   let compiled = await mdx.compile(string, {
     ...options,
     remarkPlugins: [mdxAnnotations.remark, ...(options.remarkPlugins ?? [])],
@@ -16,6 +17,7 @@ async function compile(string, options = {}) {
 
 test('it works', async () => {
   let compiled = await compile(
+    mdx,
     [
       "# Hello {{ foo: 'bar' }}",
       "- Hello {{ foo: 'bar' }}",
@@ -200,7 +202,7 @@ export default MDXContent;`
 })
 
 test('dev runtime', async () => {
-  let compiled = await compile("# Hello {{ foo: 'bar' }}", { development: true })
+  let compiled = await compile(mdx, "# Hello {{ foo: 'bar' }}", { development: true })
 
   assert.equal(
     compiled,
@@ -237,6 +239,7 @@ export default MDXContent;`
 
 test('gfm', async () => {
   let compiled = await compile(
+    mdx,
     [
       'Hello ~~world~~{{ foo: "bar" }}',
       ['| foo | bar |', '| --- | --- |', '| baz | bim |', '| {{ foo: "bar" }} |'].join('\n'),
@@ -322,6 +325,194 @@ function MDXContent(props = {}) {
   })) : _createMdxContent(props);
 }
 export default MDXContent;`
+  )
+})
+
+test('v3', async () => {
+  let compiled = await compile(
+    mdx_v3,
+    [
+      "# Hello {{ foo: 'bar' }}",
+      "- Hello {{ foo: 'bar' }}",
+      "- Hello {{ foo: 'bar' }}\n\n  World",
+      "```php {{ foo: 'bar' }}\necho '';\n```",
+      "```php{{ foo: 'bar' }}\necho '';\n```",
+      "```php {  { foo: 'bar' } }\necho '';\n```",
+      "```{{foo:'bar'}}\nHello world\n```",
+      "``` {{foo:'bar'}}\nHello world\n```",
+      "```{{ foo: 'bar' }}\nHello world\n```",
+      "``` {{ foo: 'bar' }}\nHello world\n```",
+      "Hello **world**{{ foo: 'bar' }}",
+      "Hello _world_{{ foo: 'bar' }}",
+      "Hello `world`{{ foo: 'bar' }}",
+      "Hello [world](#){{ foo: 'bar' }}",
+      "![](/img.png){{ foo: 'bar' }}",
+      "--- {{ foo: 'bar' }}",
+      "*** {{ foo: 'bar' }}",
+      "---{{ foo: 'bar' }}",
+      "***{{ foo: 'bar' }}",
+    ].join('\n\n')
+  )
+
+  assert.equal(
+    compiled,
+    `import {Fragment as _Fragment, jsx as _jsx, jsxs as _jsxs} from "react/jsx-runtime";
+function _createMdxContent(props) {
+  const _components = {
+    a: "a",
+    code: "code",
+    em: "em",
+    h1: "h1",
+    hr: "hr",
+    img: "img",
+    li: "li",
+    p: "p",
+    pre: "pre",
+    strong: "strong",
+    ul: "ul",
+    ...props.components
+  };
+  return _jsxs(_Fragment, {
+    children: [_jsx(_components.h1, {
+      children: "Hello",
+      ...{
+        foo: 'bar'
+      }
+    }), "\\n", _jsxs(_components.ul, {
+      children: ["\\n", _jsxs(_components.li, {
+        children: ["\\n", _jsx(_components.p, {
+          children: "Hello"
+        }), "\\n"],
+        ...{
+          foo: 'bar'
+        }
+      }), "\\n", _jsxs(_components.li, {
+        children: ["\\n", _jsx(_components.p, {
+          children: "Hello",
+          ...{
+            foo: 'bar'
+          }
+        }), "\\n", _jsx(_components.p, {
+          children: "World"
+        }), "\\n"]
+      }), "\\n"]
+    }), "\\n", _jsx(_components.pre, {
+      children: _jsx(_components.code, {
+        className: "language-php",
+        children: "echo '';\\n"
+      }),
+      ...{
+        foo: 'bar'
+      }
+    }), "\\n", _jsx(_components.pre, {
+      children: _jsx(_components.code, {
+        className: "language-php",
+        children: "echo '';\\n"
+      }),
+      ...{
+        foo: 'bar'
+      }
+    }), "\\n", _jsx(_components.pre, {
+      children: _jsx(_components.code, {
+        className: "language-php",
+        children: "echo '';\\n"
+      }),
+      ...{
+        foo: 'bar'
+      }
+    }), "\\n", _jsx(_components.pre, {
+      children: _jsx(_components.code, {
+        children: "Hello world\\n"
+      }),
+      ...{
+        foo: 'bar'
+      }
+    }), "\\n", _jsx(_components.pre, {
+      children: _jsx(_components.code, {
+        children: "Hello world\\n"
+      }),
+      ...{
+        foo: 'bar'
+      }
+    }), "\\n", _jsx(_components.pre, {
+      children: _jsx(_components.code, {
+        children: "Hello world\\n"
+      }),
+      ...{
+        foo: 'bar'
+      }
+    }), "\\n", _jsx(_components.pre, {
+      children: _jsx(_components.code, {
+        children: "Hello world\\n"
+      }),
+      ...{
+        foo: 'bar'
+      }
+    }), "\\n", _jsxs(_components.p, {
+      children: ["Hello ", _jsx(_components.strong, {
+        children: "world",
+        ...{
+          foo: 'bar'
+        }
+      })]
+    }), "\\n", _jsxs(_components.p, {
+      children: ["Hello ", _jsx(_components.em, {
+        children: "world",
+        ...{
+          foo: 'bar'
+        }
+      })]
+    }), "\\n", _jsxs(_components.p, {
+      children: ["Hello ", _jsx(_components.code, {
+        children: "world",
+        ...{
+          foo: 'bar'
+        }
+      })]
+    }), "\\n", _jsxs(_components.p, {
+      children: ["Hello ", _jsx(_components.a, {
+        href: "#",
+        children: "world",
+        ...{
+          foo: 'bar'
+        }
+      })]
+    }), "\\n", _jsx(_components.p, {
+      children: _jsx(_components.img, {
+        src: "/img.png",
+        alt: "",
+        ...{
+          foo: 'bar'
+        }
+      })
+    }), "\\n", _jsx(_components.hr, {
+      ...{
+        foo: 'bar'
+      }
+    }), "\\n", _jsx(_components.hr, {
+      ...{
+        foo: 'bar'
+      }
+    }), "\\n", _jsx(_components.hr, {
+      ...{
+        foo: 'bar'
+      }
+    }), "\\n", _jsx(_components.hr, {
+      ...{
+        foo: 'bar'
+      }
+    })]
+  });
+}
+export default function MDXContent(props = {}) {
+  const {wrapper: MDXLayout} = props.components || ({});
+  return MDXLayout ? _jsx(MDXLayout, {
+    ...props,
+    children: _jsx(_createMdxContent, {
+      ...props
+    })
+  }) : _createMdxContent(props);
+}`
   )
 })
 
